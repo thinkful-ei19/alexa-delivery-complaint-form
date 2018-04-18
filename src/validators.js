@@ -4,9 +4,11 @@ export function required(value) {
     }
 }
 
+// export const required = value => (value ? undefined : 'Required');
+
 export function nonEmpty(value) {
     if (value.trim() === '') {
-        return 'You must type something in';
+        return 'Cannot be empty';
     }
 }
 
@@ -16,8 +18,11 @@ export function valueLength(value) {
     }
 }
 
-export function isNumber(value) {
-    if (typeof value !== number) {
-        return 'Each character must be a number';
-    }
-}
+// export function onlyNumber(value) {
+//     if (typeof value !== 'number') {
+//         return 'Each character must be a number';
+//     }
+// }
+
+//regular expression
+export const onlyNumbers = value =>  /^\d+$/.test(value) ? undefined : 'Must only contain numbers';

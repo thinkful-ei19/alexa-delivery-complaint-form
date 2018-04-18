@@ -1,5 +1,7 @@
 import React from 'react';
+import Input from './input';
 import {reduxForm, Field} from 'redux-form';
+import {required, nonEmpty, valueLength, onlyNumbers} from '../validators';
 
 export class Form extends React.Component {
     render() {
@@ -11,24 +13,30 @@ export class Form extends React.Component {
                 onSubmit={this.props.handleSubmit(values => console.log(values)
                 )}>
                 <h2>Report a problem with your delivery</h2>
-                <label htmlFor="tracking">Tracking Number</label> 
-                <br />
-                <Field component="input" type="text" name="tracking" id="tracking" /> 
-                <br /> <br /> 
-                <label htmlFor="issue">What is your issue?</label>
-                <br />
-                <Field component="select" name="issue" id="issue">
-                    <option value="1">My delivery hasn't arrived</option>
-                    <option value="2">The wrong item was delivered</option>
-                    <option value="3">Part of mt order was missing</option>
-                    <option value="4">Some of my order arrived damaged</option>
-                    <option value="5">Other (give details below)</option>
+                <Field 
+                    component={Input}
+                    element="input" 
+                    label="Tracking Number"
+                    type="text" 
+                    name="tracking" 
+                    id="tracking" 
+                    validate={[required, nonEmpty, valueLength, onlyNumbers]} 
+                    /> 
+                <Field component={Input} element="select" label="What is your issue?" name="issue" id="issue">
+                    <option value="not arrived">My delivery hasn't arrived</option>
+                    <option value="wrong item">The wrong item was delivered</option>
+                    <option value="missing">Part of my order was missing</option>
+                    <option value="damaged">Some of my order arrived damaged</option>
+                    <option value="other">Other (give details below)</option>
                  </Field>
-                <br /> <br /> 
-                <label htmlFor="details">Give more details (optional)</label>
-                <br />
-                <Field component="input" type="text" name="details" id="details" />
-                <br /> <br /> 
+                <Field 
+                    component={Input}  
+                    element="input" 
+                    label="Give more details (optional)"
+                    type="text" 
+                    name="details" 
+                    id="details" 
+                />
                 <button type="submit">Submit</button>
             </form>
         )
